@@ -63,10 +63,19 @@
 </template>
 
 <script>
+import { getCurrentInstance, onMounted } from '@vue/composition-api'
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  setup() {
+    const vm = getCurrentInstance()
+
+    onMounted(() => {
+      console.debug(vm, 'hello word', vm.$alert)
+    })
   }
 }
 </script>
