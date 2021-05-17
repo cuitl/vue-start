@@ -3,10 +3,16 @@
  */
 
 // 从左到右执行函数，最左侧的函数可以传递多个参数，后续函数接收一个参数
-export const pipe = (...fns) => (...args) => fns.reduce((f, fn) => fn(f(...args)))
+export const pipe =
+  (...fns) =>
+  (...args) =>
+    fns.reduce((f, fn) => fn(f(...args)))
 
 // 从右到做执行函数，最右侧函数可以传递多个参数 其结果作为 左侧函数的入参
-export const compose = (...fns) => (...args) => fns.reduceRight((f, fn) => fn(f(...args)))
+export const compose =
+  (...fns) =>
+  (...args) =>
+    fns.reduceRight((f, fn) => fn(f(...args)))
 
 /**
  * 函数防抖
@@ -17,7 +23,7 @@ export const compose = (...fns) => (...args) => fns.reduceRight((f, fn) => fn(f(
  */
 export const debounce = (fn, timeout = 50, immediate) => {
   let timer
-  return function(...args) {
+  return function (...args) {
     if (timer) {
       clearTimeout(timer)
     } else if (immediate) {
@@ -46,7 +52,7 @@ export const throttle = (fn, time = 50, immediate = true, defer) => {
   let lastTime = Date.now()
   let timer
 
-  return function(...args) {
+  return function (...args) {
     if (immediate) {
       // 首次声明并立即执行会因为未到时间无法立即执行
       // set false 连续触发节后后，隔一段时间在执行，由于 lastTime过早会立即执行
@@ -101,7 +107,7 @@ export const getUUID = (len = 32) => {
 }
 
 // 根据图片 url地址 下载图片
-export const downloadIamge = function(imgsrc = '', name) {
+export const downloadIamge = function (imgsrc = '', name) {
   const image = new Image()
   const lastIndex = imgsrc.lastIndexOf('.')
   const fileType = lastIndex > -1 ? imgsrc.substr(lastIndex + 1).toLowerCase() : 'png'
@@ -109,7 +115,7 @@ export const downloadIamge = function(imgsrc = '', name) {
 
   // 解决跨域 Canvas 污染问题
   image.setAttribute('crossOrigin', 'anonymous')
-  image.onload = function() {
+  image.onload = function () {
     let canvas = document.createElement('canvas')
     canvas.width = image.width
     canvas.height = image.height
@@ -124,7 +130,7 @@ export const downloadIamge = function(imgsrc = '', name) {
     // 触发a的单击事件
     a.dispatchEvent(event)
   }
-  image.onerror = function(e) {
+  image.onerror = function (e) {
     console.warn('下载图片失败', e)
   }
   image.src = imgsrc
@@ -252,7 +258,7 @@ export const getFetchSafty = (fn, useCache = false) => {
   }
 
   // 清空缓存
-  fetch.clear = function() {
+  fetch.clear = function () {
     Object.keys(cachePromises).forEach(key => {
       delete cachePromises[key]
     })
@@ -262,7 +268,7 @@ export const getFetchSafty = (fn, useCache = false) => {
 }
 
 // 检测 webp图片可用性
-export const canUseWebp = (function() {
+export const canUseWebp = (function () {
   var elem = document.createElement('canvas')
   if (elem.getContext && elem.getContext('2d')) {
     return elem.toDataURL('image/webp').indexOf('data:image/webp') === 0
@@ -296,7 +302,7 @@ export function getImageReact(url) {
       }
     }
     set = setInterval(check, 40)
-    img.onload = function() {
+    img.onload = function () {
       resolve({ width: this.width, height: this.height, type: 'onload' })
     }
     img.onerror = error => {
@@ -405,14 +411,14 @@ export function loadStyle(href) {
 
 /* 动态加载JS */
 export function loadScript(url, callback, async, onerror) {
-  callback = typeof callback === 'function' ? callback : function() {}
+  callback = typeof callback === 'function' ? callback : function () {}
   // 已经加载成功，不再进行加载
   if (loaderManager.js.includes(url)) {
     callback()
     return
   }
   let script = document.createElement('script')
-  script.onload = script.onreadystatechange = function() {
+  script.onload = script.onreadystatechange = function () {
     let { readyState } = script
     if (!readyState || readyState === 'loaded' || readyState === 'complete') {
       loaderManager.js.push(url)
