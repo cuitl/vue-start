@@ -11,7 +11,7 @@ Vue.use(VueCompositionAPI)
 
 Vue.config.productionTip = false
 
-Vue.prototype.$alert = function(msg) {
+Vue.prototype.$alert = function (msg) {
   console.debug(msg)
 }
 
