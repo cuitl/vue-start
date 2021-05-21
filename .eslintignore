@@ -1,0 +1,5 @@
+server/*.js
+vue.config.js
+mock/*
+public/*
+dist/*
