@@ -448,3 +448,24 @@ export function scriptLoader(url, async) {
     loadScript(url, resolve, async, reject)
   })
 }
+
+/**
+ * 是否支持 某个 css属性
+ * @param {String} style 样式属性 如: aspect-ratio
+ * @returns {Boolean} if surpport
+ */
+export function isSupportCss(style) {
+  const prefix = ['webkit', 'Moz', 'ms', 'o', '']
+  const htmlStyle = document.documentElement.style
+  // 修改到驼峰命名 : aspect-ratio -> aspectRatio
+  const toHumb = string => {
+    return string.replace(/-(\w)/g, function ($0, $1) {
+      return $1.toUpperCase()
+    })
+  }
+  // 属性是否在 style中
+  return prefix.some(pre => {
+    const prop = toHumb(pre ? `${pre}-${style}` : style)
+    return prop in htmlStyle
+  })
+}
