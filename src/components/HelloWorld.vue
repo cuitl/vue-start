@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { getCurrentInstance, onMounted } from '@vue/composition-api'
+import { getCurrentInstance, onMounted } from 'vue'
 
 export default {
   name: 'HelloWorld',

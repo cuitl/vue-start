@@ -10,10 +10,19 @@
 </template>
 
 <script>
-// import {onMounted} from '@vue/composition-api'
+import { getCurrentInstance, onMounted } from 'vue'
 
 export default {
-  setup() {}
+  setup() {
+    const vm = getCurrentInstance()
+
+    onMounted(() => {
+      console.debug(vm, 'App', vm.$style)
+    })
+  },
+  created() {
+    console.log(this.$style)
+  }
 }
 </script>
 
