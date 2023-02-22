@@ -18,6 +18,14 @@ export default {
 
     onMounted(() => {
       console.debug(vm, 'App', vm.$style)
+
+      // test api -----------
+      const oReq = new XMLHttpRequest()
+      oReq.addEventListener('load', e => {
+        console.log(e)
+      })
+      oReq.open('GET', '/api/user')
+      oReq.send()
     })
   },
   created() {
